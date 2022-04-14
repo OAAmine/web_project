@@ -35,12 +35,12 @@ session_start();
 
 
         <div class="sign_up_in">
-            <?php if ((isset($_SESSION['username']))) { ?>
+            <?php if ((isset($_SESSION['nom_d_utilisateur']))) { ?>
                 <div class="dropdown compte">
                     <button class="dropdown"> 
                         <a href="#">
                             <img src="img/profil_placeholder.png" alt="">
-                            <p class="username"><?php echo($_SESSION['username']) ?> </p>
+                            <p class="username"><?php echo($_SESSION['nom_d_utilisateur']) ?> </p>
                         </a>
                         <i class="fsa fcd"></i>
                     </button>
