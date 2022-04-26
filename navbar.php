@@ -1,7 +1,4 @@
-<?php
-
-session_start();
-?>
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,18 +18,11 @@ session_start();
             <a href="/index.php"><img src="img/logo1.jpg" alt="Logo"></a>
         </div>
         <ul class="nav_buttons">
-            <li><a href="/infos_events.php">Informations <br>& évenements</a> </li>
-
             <li><a href="/chercheurs.php">Chercheurs</a> </li>
-
             <li><a href="/publication.php">Publications</a> </li>
-
             <li><a href="/conferences.php">Conferences</a> </li>
-
             <li><a href="/journaux.php">Journaux</a> </li>
         </ul>
-
-
 
         <div class="sign_up_in">
             <?php if ((isset($_SESSION['nom_d_utilisateur']))) { ?>
@@ -46,7 +36,7 @@ session_start();
                     </button>
                     <div class="dropdown_liste">
                         <a href="/profil.php">Mon tableau de bord</a>
-                        <a href="/parametres.php">paramétres</a>
+                        <a href="/parametres.php">paramètres</a>
                         <a href="/logout.php">Déconnexion</a>
                     </div>
                 </div>
@@ -70,8 +60,6 @@ session_start();
 <style>
     /*---------------NAV BAR--------------*/
 
-
-
     nav {
         font-size: 18px;
         border-bottom: 1px solid #d0d0d0;
@@ -79,7 +67,6 @@ session_start();
         font-family: Montserrat;
         text-decoration: none;
     }
-
 
     .main_nav {
         display: flex;
@@ -97,10 +84,7 @@ session_start();
 
     }
 
-
-
     /*---------------BUTTONS------------------*/
-
 
     .nav_buttons {
         width: 65%;
@@ -198,7 +182,6 @@ session_start();
     .username{
         padding-left: 10px;
     }
-
 
     .dropdown span {
         text-decoration: none;

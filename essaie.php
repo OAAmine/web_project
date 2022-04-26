@@ -4,33 +4,85 @@
 <head>
     <meta charset="utf-8">
     <title>Accueil</title>
-    <link type="text/css" rel="stylesheet" href="index.css">
+    <link type="text/css" rel="stylesheet" href="accueil.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
-            let num = setInterval(function(){
-                let distance = parseInt($('#dia-images').css('left'));
-                distance-= 300
-                if(distance<- 300*($('img').length-1)){{distance = 0}}
-                $('#dia-images').animate({left: distance });
-            },2000);
+        <?php 
+        
+        require 'db.php';
+        $sql = $db->query("SELECT * from information ORDER BY date DESC");
+        $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-            $('#dia-images').hover(function(){
-                if(num!==false){
-                    clearInterval(num);
-                    num=false;
-                }
-                else{
-                    num = setInterval(function(){
-                        let distance = parseInt($('#dia-images').css('left'));
-                        distance-= 300
-                        if(distance<-300*($('img').length-1)){distance = 0};
-                        $('#dia-images').animate({left: distance });
-                    },2000);
-                };
-            })
-        });
+            $nom_info = array_column($rows, 'nom_info');
+            $js_array = json_encode($nom_info);
+            echo "var nom_info = ". $js_array . ";\n";
+
+            $images = array_column($rows, 'info_img');
+            $js_array = json_encode($images);
+            echo "var slide = ". $js_array . ";\n";
+
+        ?>
+
+var tab = slide;
+        var i = 0;
+        var time = null;
+
+        function affiche() {
+            document.getElementById("diapo_link").href="'informations.php?nom_info='"+nom_info[i]+"";
+            document.getElementById("diapo").src=tab[i];
+            i++;
+            if (i>=4) i=0;
+        }
+        function start() {
+            time = setInterval(function() {affiche()}, 2000);
+        }
+        function stop() {
+            clearInterval(time);
+        }
     </script>
+
+    <style>
+    .presentation{
+        width: 60%;
+        padding-top:3%;
+        padding-left:5%;
+    }
+
+    .objectif {
+        width: 60%;
+        padding-top:3%;
+        padding-left:5%;
+    }
+
+    .information{
+        width: 60%;
+        padding-left: 2%;
+    }
+
+    main {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .evenement {
+        width: 30%;
+        padding: top;
+    }
+
+    .info-image {
+        border: 4px solid black;
+        padding: 3%;
+        margin: 2%;
+    }
+
+    table,
+    th,
+    td {
+        padding: 2%;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    </style>
 </head>
 
 <body>
@@ -41,8 +93,6 @@
 
     <main>
         <div class="left">
-        <?php 
-             ?>
             <div class="presentation">
                 <h3> <u> Présentation : </u> </h3>
                 <p>« LE NOM DU SITE » offre une plateforme de collaboration entre chercheurs du monde entier. </br>Il
@@ -53,16 +103,13 @@
             </div>
 
             <div class="diaporama">
-                <div id="dia-images">
-                <?php 
-                    require 'db.php';
-                    $sql = $db->prepare("SELECT * from information ORDER BY date DESC LIMIT 4");
+           <?php $sql = $db->prepare("SELECT * from information ORDER BY date DESC");
                     $sql-> execute();
-                    while ($rows = $sql->fetch()) {?>
-                        <a href="<?php echo "informations.php?nom_info=".$rows['nom_info']?>">
-                            <img class="slide-img" src="img/<?php echo $rows['info_img']?>"  > </a>
+                    while ($rows = $sql->fetch()) { ?>
+                <a id="diapo_link" href="informations.php?nom_info=<?php echo $rows['nom_info'] ?>"  >
+                <img id="diapo" name="diapo" src="img/<?php echo $row['info_img'] ?>" widht="384" height="296" alt="" onmouseover="stop()" onmouseout="start()" >
+                    </a>
                     <?php }?>
-                </div>
             </div>
 
             <div class="objectif">
@@ -80,7 +127,7 @@
         <div class="evenement">
             <h1> évènement </h1>
             <?php 
-            $requete = 'SELECT * FROM evenement';
+            $requete = 'select * from evenement';
             $result = $db->prepare($requete);
             $result->execute();
             $res = $result->fetchAll();
@@ -106,15 +153,18 @@
 
     <div class="information">
         <?php
-            $query = $db->prepare("SELECT nom_info, contenu from information ORDER BY date");
+            $query = $db->prepare("SELECT nom_info, contenu from information");
             $query->execute();
+
             while ($row = $query->fetch()) { ?>
         <div class="info-image">
             <a href="<?php echo "informations.php?nom_info=".$row['nom_info']; ?>">
-                <h3> <?php echo $row['nom_info'] ?> : </h3> </a>
+                <h3> <?php echo $row['nom_info'] ?> : </h3>
+            </a>
+
             <p> <?php echo $row['contenu'] ?> </p>
         </div> </br>
-        <?php }?>
+        <?php  }?>
     </div>
 
     <footer>
@@ -123,3 +173,11 @@
 </body>
 
 </html>
+
+
+
+            
+<a id="diapo_link" href="<?php echo "informations.php?nom_info=".$rows['nom_info']?>">
+                    <img id="diapo" name="diapo" src="img/<?php echo $rows['info_img']?>" widht="384" height="296" alt="" onmouseover="stop()" onmouseout="start()" >
+                    </a>
+
