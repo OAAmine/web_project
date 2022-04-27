@@ -21,8 +21,11 @@
             display: none;
         }
 
-        img {
+        .mySlides img {
             vertical-align: middle;
+            width: 100%;
+            height: auto;
+
         }
 
         /* Slideshow container */
@@ -31,6 +34,7 @@
             position: relative;
             margin: auto;
         }
+
 
         /* Caption text */
         .text {
@@ -136,8 +140,8 @@
                         if ($i < 4){
 ?>
                     <div class="mySlides fade">
-                        <img src="img/<?php echo $res[$i]['info_img'] ?>" style="width:100%">
-                        <div class="text"><?php echo $res[$i]['nom_info'] ?></div>
+                        <a href="<?php echo "informations.php?nom_info=" . $res[$i]['nom_info']; ?>"><img src="img/<?php echo $res[$i]['info_img'] ?>" style="width:100%">
+                        <div class="text"><?php echo $res[$i]['nom_info'] ?></div></a>
                     </div>
 <?php }} ?>
                 </div>
@@ -167,7 +171,7 @@
                             <div class="carte_info">
                                 <h4><b><?php echo $res[$i]['nom_info'] ?></b></h4>
                                 <p><?php echo $res[$i]['date'] ?></p>
-                                <p><?php echo (substr($res[$i]['contenu'], 0, 30) . '...') ?><a href="<?php echo "info_info.php?nom_info=" . $res[$i]['nom_info']; ?>">Lire la suite</a> </p>
+                                <p><?php echo (substr($res[$i]['contenu'], 0, 30) . '...') ?><a href="<?php echo "informations.php?nom_info=" . $res[$i]['nom_info']; ?>">Lire la suite</a> </p>
                             </div>
                     <?php  }
                     } ?>
@@ -183,7 +187,7 @@
                             <div class="carte_info">
                                 <h4><b><?php echo $res[$i]['nom_info'] ?></b></h4>
                                 <p><?php echo $res[$i]['date'] ?></p>
-                                <p><?php echo (substr($res[$i]['contenu'], 0, 30) . '...') ?><a href="<?php echo "info_info.php?nom_info=" . $res[$i]['nom_info']; ?>">Lire la suite</a> </p>
+                                <p><?php echo (substr($res[$i]['contenu'], 0, 30) . '...') ?><a href="<?php echo "informations.php?nom_info=" . $res[$i]['nom_info']; ?>">Lire la suite</a> </p>
                             </div>
                     <?php  }
                     } ?>
@@ -243,6 +247,7 @@
         }
     </script>
 
+<?php include("footer.php"); ?>
 
 </body>
 

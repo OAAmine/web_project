@@ -1,19 +1,23 @@
 <?php
-if (isset($_POST['submit'])) {
-    if (!empty($_POST['tri'])) {
-        $selected = $_POST['tri'];
-        header('Location:' . $current_url . '?trier_par=' . $selected);
+    if (isset($_POST['submit'])) {
+        if (!empty($_POST['tri'])) {
+            $selected = $_POST['tri'];
+            header('Location:' . $current_url . '?trier_par=' . $selected);
+        }
     }
-}
 
 
-$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-$url_components = parse_url($url);
-parse_str($url_components['query'], $params);
-$trier_par = $params['trier_par'];
+    $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+   
+    if (isset($_GET['trier_par'])) {
+        echo 'eee';
+        $url_components = parse_url($url);
+        parse_str($url_components['query'], $params);
+        $trier_par = $params['trier_par'];
+    }
+
 ?>
-
 <!doctype html>
 <html lang="fr">
 
@@ -92,7 +96,7 @@ $trier_par = $params['trier_par'];
                         <?php
                         if ($row_cnt > 0) {
                             for ($i = 0; $i < count($res); $i++) { ?>
-                <tr class='clickable-row' data-href='<?php echo "info_conference.php?abreviation=" . $res[$i]['abreviation']; ?>'>
+                                <tr class='clickable-row' data-href='<?php echo "info_conference.php?abreviation=" . $res[$i]['abreviation']; ?>'>
                                     <td><?php echo $res[$i]['titre_c'] ?></td>
                                     <td><?php echo $res[$i]['abreviation'] ?></td>
                                     <td><?php echo $res[$i]['sujet'] ?></td>
@@ -106,13 +110,16 @@ $trier_par = $params['trier_par'];
                     </table>
             </div>
     </main>
+    <?php
+
+    ?>
     <script>
-            jQuery(document).ready(function($) {
-                $(".clickable-row").click(function() {
-                    window.location = $(this).data("href");
-                });
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("href");
             });
-        </script>
+        });
+    </script>
     <?php include("footer.php"); ?>
 </body>
 

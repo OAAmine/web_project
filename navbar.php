@@ -19,7 +19,6 @@ session_start();
     </div>
     <nav class="main_nav">
         <ul class="nav_buttons">
-            <li><a href="/informations.php">Informations & Évenements</a></li>
 
             <li><a href="/chercheurs.php">Chercheurs</a> </li>
 

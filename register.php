@@ -4,6 +4,7 @@
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <link rel="stylesheet" href="all.css">
 <link rel="stylesheet" href="forms.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
 
@@ -13,6 +14,7 @@ require_once 'db.php';
 
 if (isset($_REQUEST['register']))    //button name is "btn_login" 
 {
+
     $nom = strip_tags($_REQUEST["txt_nom"]);
     $prenom = strip_tags($_REQUEST["txt_prenom"]);
     $date_de_naissance = strip_tags($_REQUEST["txt_date_de_naissance"]);
@@ -390,9 +392,7 @@ if (isset($_REQUEST['register']))    //button name is "btn_login"
                     <option value="Serbia and Montenegro">Serbia and Montenegro</option>
                     <option value="Zambia">Zambia</option>
                 </select>
-
             </div>
-
             <div class="tab">
                 <h2>Coordonnées :</h2>
                 <p><input type="email" placeholder="E-mail..." oninput="this.className = ''" name="txt_email" id="email"></p>
@@ -723,7 +723,6 @@ if (isset($_REQUEST['register']))    //button name is "btn_login"
         </div>
 
     </div>
-
     <script>
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
