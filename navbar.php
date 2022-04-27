@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php
+
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,35 +11,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <title>NavBar</title>
 </head>
 
 <body>
-
+    <div class="logo_nav_bar">
+        <a href="/index.php"><img src="img/logo.jpg" alt="Logo"></a>
+    </div>
     <nav class="main_nav">
-        <div class="logo_nav_bar">
-            <a href="/index.php"><img src="img/logo1.jpg" alt="Logo"></a>
-        </div>
         <ul class="nav_buttons">
+            <li><a href="/informations.php">Informations & Évenements</a></li>
+
             <li><a href="/chercheurs.php">Chercheurs</a> </li>
+
             <li><a href="/publication.php">Publications</a> </li>
+
             <li><a href="/conferences.php">Conferences</a> </li>
+
             <li><a href="/journaux.php">Journaux</a> </li>
         </ul>
+
+
 
         <div class="sign_up_in">
             <?php if ((isset($_SESSION['nom_d_utilisateur']))) { ?>
                 <div class="dropdown compte">
-                    <button class="dropdown"> 
+                    <button class="dropdown">
                         <a href="#">
                             <img src="img/profil_placeholder.png" alt="">
-                            <p class="username"><?php echo($_SESSION['nom_d_utilisateur']) ?> </p>
+                            <p class="username"><?php echo ($_SESSION['nom_d_utilisateur']) ?> </p>
                         </a>
                         <i class="fsa fcd"></i>
                     </button>
                     <div class="dropdown_liste">
-                        <a href="/profil.php">Mon tableau de bord</a>
-                        <a href="/parametres.php">paramètres</a>
+                        <a href="/profil_chercheur?id=<?php echo ($_SESSION['id']) ?>.php">Profil</a>
                         <a href="/logout.php">Déconnexion</a>
                     </div>
                 </div>
@@ -60,13 +67,18 @@
 <style>
     /*---------------NAV BAR--------------*/
 
+
+
     nav {
         font-size: 18px;
         border-bottom: 1px solid #d0d0d0;
         font-weight: 400;
         font-family: Montserrat;
         text-decoration: none;
+        margin-bottom: 20px;
+        text-align: center;
     }
+
 
     .main_nav {
         display: flex;
@@ -75,16 +87,20 @@
         align-items: center;
     }
 
-    .logo_nav_bar{
+    .logo_nav_bar {
         width: 5%;
     }
+
     .logo_nav_bar img {
         width: 60px;
         height: auto;
 
     }
 
+
+
     /*---------------BUTTONS------------------*/
+
 
     .nav_buttons {
         width: 65%;
@@ -137,25 +153,25 @@
     .btn_connect {
         color: white;
         border: 3px solid white;
-        background-color: #6c037c;
+        background-color: #191970;
     }
 
     .btn_connect:hover,
     .btn_connect:active {
         background-color: white;
-        color: #6c037c;
-        border: 3px solid #6c037c;
+        color: #191970;
+        border: 2px solid #191970;
     }
 
     .btn_inscrire {
-        color: #972AA8;
+        color: #191970;
         background-color: white;
         border: 3px solid white;
     }
 
     .btn_inscrire:hover,
     .btn_inscrire:active {
-        background-color: rgb(150, 46, 106);
+        background-color: #191970;
         border: 3px solid white;
         color: white;
     }
@@ -168,20 +184,22 @@
 
     }
 
-    .dropdown{
+    .dropdown {
         padding-left: 20px;
     }
 
-    .dropdown a{
+    .dropdown a {
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         text-decoration: none;
     }
-    .username{
+
+    .username {
         padding-left: 10px;
     }
+
 
     .dropdown span {
         text-decoration: none;

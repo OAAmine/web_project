@@ -4,17 +4,10 @@
 <head>
     <meta charset="utf-8">
     <title>Les journaux</title>
-    <link rel="stylesheet" href="journaux.css">
     <link rel="stylesheet" href="all.css">
-    <style>
-    table,
-    th,
-    td {
-        padding: 10px;
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-    </style>
+    <script src="jquery-3.6.0.min.js"></script>
+
+
 </head>
 
 <body>
@@ -37,35 +30,41 @@
             $result -> execute();
             $res = $result-> fetchAll();
 
-            if(!$result ){
-                echo 'Erreur lors de l\'execution de la requete' .mysqli_error();
-            }
-            else{
+
             ?>
-                <table>
+                <table class="styled-table">
                     <tr>
-                        <th>titre_j</th>
-                        <th>id_isbn</th>
-                        <th>editeur</th>
-                        <th>theme</th>
+                        <th>Titre</th>
+                        <th>ISBN</th>
+                        <th>Éditeur</th>
+                        <th>Theme</th>
                     </tr>
                     <?php  
                         for ($i=0; $i<count($res); $i++ ){?>
-                    <tr>
+                <tr class='clickable-row' data-href='<?php echo "info_journal.php?id_isbn=".$res[$i]['id_isbn']; ?>'>
                         <td><?php echo $res[$i]['titre_j'] ?></td>
                         <td><?php echo $res[$i]['id_isbn'] ?></td>
                         <td><?php echo $res[$i]['editeur'] ?></td>
                         <td><?php echo $res[$i]['theme'] ?></td>
                     </tr>
                     <?php  }?>
-                    <?php } ?>
+                   
                 </table>
-                <?php
-        ?>
+
 
             </div>
     </main>
     <?php include("footer.php"); ?>
+
+    <script>
+
+
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+        </script>
 </body>
 
 </html>

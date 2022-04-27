@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="all.css">
+
 
     <?php
         require 'db.php';
@@ -25,13 +27,15 @@
         $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
     ?>
 
-    <div class="profile">
-        <div class="info">
-            <h4><?php echo $row['titre']; ?> : </h4>
-           <p> date de publication : <u><strong><?php echo $row['date_de_publication']; ?></u></strong></p>
-           <p><?php echo $row['contenu']; ?></p>
+
+
+    <div class="info">
+            <h1>Titre : <span><?php echo $row['titre'];?></span></h1>
+            <h2>Date de publication : <span><?php echo $row['date_de_publication']; ?></span></h2>
+            <h2>Contenu : <span><?php echo $row['contenu']; ?></span></h2>
         </div>
-    </div>
+
+
 
 <?php include("footer.php"); ?>
 

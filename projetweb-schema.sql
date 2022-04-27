@@ -1,4 +1,4 @@
-DROP DATABASE projetweb;
+DROP DATABASE IF EXISTS projetweb;
 CREATE DATABASE projetweb;
 USE projetweb;
 CREATE TABLE chercheurs
@@ -57,8 +57,6 @@ CREATE TABLE publication
 (
     titre VARCHAR(100),
     date_de_publication date,
-    
-    
 );
 
 

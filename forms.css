@@ -1,0 +1,135 @@
+.disconnect_btn{
+    background-color: #191970;
+    color: #ffffff;
+    border: none;
+    padding-top: 50px;
+    padding: 15px 20px;
+    font-size: 17px;
+    margin-top: 20px;
+    font-family: Raleway;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+
+#formulaire_d_inscription {
+    width: 100%;
+    margin: 20px 0 20px 0;
+}
+
+
+
+h1 {
+    text-align: center;
+}
+
+input,
+textarea,
+select {
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+}
+
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid,
+textarea.invalid,
+#date_de_naissance.invalid,
+#phone.invalid,
+#code_postal.invalid {
+    background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+}
+
+button,input[type=submit] {
+    background-color: #191970;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: Raleway;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:hover,input[type=submit]:hover {
+    opacity: 0.8;
+}
+
+#prevBtn {
+    background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #04AA6D;
+}
+
+
+
+
+.tel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+.travail_grade {
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.container {
+    margin: 0 15% 0 15%;
+    height: auto;
+}
+
+.connect {
+    margin: 10px 0;
+}
+.error_msg{
+    background-color: rgb(255, 0, 0, 0.5);
+}
+.error_msg p{
+    padding-left: 10px;
+    font-weight: bold;
+}

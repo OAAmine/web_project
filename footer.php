@@ -13,16 +13,20 @@
                     quisquam voluptates autem ab possimus aperiam voluptate a ipsum quasi,
                     harum, molestias sint laborum ullam quaerat iusto sit.
                 </p>
-                <img src="/RESSOURCES/css/img/logo-placeholder.svg" alt="Logo">
+                <img src="img/logo.jpg" alt="Logo">
             </div>
         </div>
         <div class="right_side_footer">
             <div class="liens_utiles">
                 <h6>LIENS UTILES</h6>
-                <a href="/profil_enseignant.php">Mon Compte</a>
-                <a href="/search.php">Recherche</a>
-                <a href="/index.php">Page d'acceuil</a>
-                <a href="/parametres.php">Paramétres</a>
+                <a href="<?php if(isset($_SESSION['id']))
+                { echo ("/profil_chercheur?id=".$_SESSION['id']); }
+                 else { echo ('login') ;} ?>.php">Mon Profil</a>
+                <a href="/chercheurs.php">Chercheurs</a>
+                <a href="/publication.php">Publications</a>
+                <a href="/conferences.php">Conférences</a>
+                <a href="/journaux.php">Journaux</a>
+
             </div>
             <div class="aides">
                 <h6>aide</h6>
@@ -32,16 +36,16 @@
             </div>
             <div class="les_reseaux">
                 <h6>suivez-nous</h6>
-                <a href="https://facebook.com">
+                <a href="#">
                     <ion-icon class="logo_facebook" name="logo-facebook"></ion-icon>
                 </a>
-                <a href="https://instagram.com">
+                <a href="#">
                     <ion-icon class="logo_instagram" name="logo-instagram"></ion-icon>
                 </a><br>
-                <a href="https://youtube.com">
+                <a href="#">
                     <ion-icon class="logo_youtube" name="logo-youtube"></ion-icon>
                 </a>
-                <a href="https://twitter.com">
+                <a href="#">
                     <ion-icon class="logo_twitter" name="logo-twitter"></ion-icon>
                 </a>
             </div>
@@ -51,7 +55,7 @@
         <a href="#">Politique & Confidentialité </a><SPAN> &nbsp; | &nbsp; </SPAN>
         <a href="#">Termes & Conditions </a><SPAN> &nbsp; | &nbsp; </SPAN>
         <a href="#">Cookies </a><SPAN> &nbsp; | &nbsp; </SPAN>
-        <a id="rights">2021 Nom du site. Tout les droits reservée</a>
+        <a id="rights">2022 Nom du site. Tout les droits reservée</a>
     </div>
 </footer>
 <style>

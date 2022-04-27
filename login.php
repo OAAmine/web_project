@@ -1,109 +1,181 @@
+<style>
+	form {
+		margin: 20px 30% 20px 30%;
+	}
+
+
+
+	h1 {
+		text-align: center;
+	}
+
+	input[type=text],
+	input[type=password],
+	textarea,
+	select {
+		padding: 10px;
+		width: 100%;
+		font-size: 17px;
+		font-family: Raleway;
+		border: 1px solid #aaaaaa;
+	}
+
+	input[type=submit] {
+		background-color: #191970;
+		color: #ffffff;
+		border: none;
+		padding: 10px 20px;
+		font-size: 17px;
+		font-family: Raleway;
+		cursor: pointer;
+		margin-top: 15px;
+	}
+
+	input[type=submit]:hover {
+		opacity: 0.8;
+	}
+</style>
+
+
+<?php
+
+require_once 'db.php';
+
+session_start();
+
+if (isset($_SESSION["nom_d_utilisateur"]))	//check condition user login not direct back to index.php page
+{
+	header("location: index.php");
+}
+
+if (isset($_REQUEST['btn_login']))	//button name is "btn_login" 
+{
+	$nom_d_utilisateur	= strip_tags($_REQUEST["txt_nom_d_utilisateur_email"]);	//textbox name "txt_username_email"
+	$email		= strip_tags($_REQUEST["txt_nom_d_utilisateur_email"]);	//textbox name "txt_username_email"
+	$password	= strip_tags($_REQUEST["txt_password"]);			//textbox name "txt_password"
+
+
+
+
+	if (empty($nom_d_utilisateur)) {
+		$errorMsg[] = "please enter username or email";	//check "username/email" textbox not empty 
+	} else if (empty($email)) {
+		$errorMsg[] = "please enter username or email";	//check "username/email" textbox not empty 
+	} else if (empty($password)) {
+		$errorMsg[] = "please enter password";	//check "passowrd" textbox not empty 
+	} else {
+		try {
+			$select_stmt = $db->prepare("SELECT * FROM chercheurs WHERE nom_d_utilisateur=:uname OR email=:uemail"); //sql select query
+			$select_stmt->execute(array(':uname' => $nom_d_utilisateur, ':uemail' => $email));	//execute query with bind parameter
+			$row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+			if ($select_stmt->rowCount() > 0)	//check condition database record greater zero after continue
+			{
+				if ($nom_d_utilisateur == $row["nom_d_utilisateur"] or $email == $row["email"]) //check condition user taypable "username or email" are both match from database "username or email" after continue
+				{
+					if (password_verify($password, $row["mot_de_passe"])) //check condition user taypable "password" are match from database "password" using password_verify() after continue
+					{
+						$_SESSION["nom_d_utilisateur"] = $row["nom_d_utilisateur"];	//session name is "user_login"
+						$_SESSION["id"] = $row["id"];
+						$loginMsg = "Successfully Login...";		//user login success message
+
+						header("refresh:2; index.php");			//refresh 2 second after redirect to "welcome.php" page
+					} else {
+						$errorMsg[] = "wrong password";
+					}
+				} else {
+					$errorMsg[] = "wrong username or email";
+				}
+			} else {
+				$errorMsg[] = "wrong username or email";
+			}
+		} catch (PDOException $e) {
+			$e->getMessage();
+		}
+	}
+}
+?>
+
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="login.css">
-    <title>connexion</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<title>Login and Register Script using PHP PDO with MySQL : onlyxcodes.com</title>
+
+	<script src="js/jquery-1.12.4-jquery.min.js"></script>
+	<link rel="stylesheet" href="all.css">
+
+
+
 </head>
 
 <body>
-    <?php
 
-    require_once 'db.php';
-
-    session_start();
-
-    if (isset($_SESSION["nom_d_utilisateur"]))    //check condition user login not direct back to index.php page
-    {
-        header("location: index.php");
-    }
-
-    if (isset($_REQUEST['submit']))    //button name is "btn_login" 
-    {
-        $nom_d_utilisateur = strip_tags($_REQUEST["nom_d_utilisateur"]);    //textbox name "txt_nom_d_utilisateur_email"
-        $mot_de_passe = strip_tags($_REQUEST["mot_de_passe"]);            //textbox name "txt_mot_de_passe"
-
-        if (empty($nom_d_utilisateur)) {
-            $errorMsg[] = "Veuillez saisir votre nom d'utilisateur";    //check "nom_d_utilisateur/email" textbox not empty 
-        } else if (empty($mot_de_passe)) {
-            $errorMsg[] = "Veuillez saisir votre mot de passe";    //check "passowrd" textbox not empty 
-        } else {
-            try {
-                $select_stmt_nom_d_utilisateur = $db->prepare("SELECT * FROM chercheurs WHERE nom_d_utilisateur = :tnom_d_utilisateur"); //sql select query
-                $select_stmt_nom_d_utilisateur->execute(array(':tnom_d_utilisateur' => $nom_d_utilisateur));    //execute query with bind parameter
-                $row_nom_d_utilisateur = $select_stmt_nom_d_utilisateur->fetch(PDO::FETCH_ASSOC);
-
-
-                if ($select_stmt_nom_d_utilisateur->rowCount() > 0)    //check condition database record greater zero after continue
-                {
-                    if ($nom_d_utilisateur == $row_nom_d_utilisateur["nom_d_utilisateur"]) //check condition user taypable "nom_d_utilisateur or email" are both match from database "nom_d_utilisateur or email" after continue
-                    {
-                        if (password_verify($mot_de_passe, $row_nom_d_utilisateur["mot_de_passe"])) //check condition user taypable "mot_de_passe" are match from database "mot_de_passe" using mot_de_passe_verify() after continue
-                        {
-                            $_SESSION["nom_d_utilisateur"] = $row_nom_d_utilisateur["nom_d_utilisateur"];    //session name is "user_login"
-                            $loginMsg = "connection avec succès...";        //user login success message
-                            header("refresh:2; index.php");            //refresh 2 second after redirect to "welcome.php" page
-                            session_start();
-                        } else {
-                            $errorMsg[] = "Mauvaise combinaison ";
-                        }
-                    }
-                }
-            } catch (PDOException $e) {
-                $e->getMessage();
-            }
-        }
-    }
-    ?>
+	<?php include("navbar.php"); ?>
 
 
 
-    <div class="tout">
-        <div class="logo">
-            <a href="index.php"><img src="img/logo1.jpg" alt="img logo"></a>
-        </div>
-        <div class="cote-form">
+	<?php
+	if (isset($errorMsg)) {
+		foreach ($errorMsg as $error) {
+	?>
+			<div class="alert alert-danger">
+				<strong><?php echo $error; ?></strong>
+			</div>
+		<?php
+		}
+	}
+	if (isset($loginMsg)) {
+		?>
+		<div class="alert alert-success">
+			<strong><?php echo $loginMsg; ?></strong>
+		</div>
+	<?php
+	}
+	?>
+	<center>
+		<h2>Login Page</h2>
+	</center>
+	<form method="post" class="form-horizontal">
 
-            <form class="form" method="post" name="login">
-                <h1>Se connecter</h1>
-                <?php
-                if (isset($errorMsg)) {
-                    foreach ($errorMsg as $error) {
-                ?>
-                        <div class="alert alert-danger">
-                            <strong><?php echo $error; ?></strong>
-                        </div>
-                    <?php
-                    }
-                }
-                if (isset($loginMsg)) {
-                    ?>
-                    <div class="alert alert-success">
-                        <strong><?php echo $loginMsg; ?></strong>
-                    </div>
-                <?php
-                }
-                ?>
-                <div class="champs">
-                    <input type="text" class="login-input" name="nom_d_utilisateur" placeholder="Nom d'utilisateur" autofocus="true" />
-                    <input type="mot_de_passe" class="login-input" name="mot_de_passe" placeholder="Mot de passe" />
-                </div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Username or Email</label>
+			<div class="col-sm-6">
+				<input type="text" name="txt_nom_d_utilisateur_email" class="form-control" placeholder="enter username or email" />
+			</div>
+		</div>
 
-                <br>
-                <input type="submit" value="Login" name="submit" class="login-button" />
-                <p>Vous n'avez pas encore de compte ? <a href="register.php">Inscrivez-vous gratuitement</a> </p>
-            </form>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Password</label>
+			<div class="col-sm-6">
+				<input type="password" name="txt_password" class="form-control" placeholder="enter passowrd" />
+			</div>
+		</div>
 
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9 m-t-15">
+				<input type="submit" name="btn_login" class="btn btn-success" value="Login">
+			</div>
+		</div>
 
-        </div>
-        <div class="image">
-            <img src="RESSOURCES/css/img/login.png" alt="">
-        </div>
-    </div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9 m-t-15">
+				You don't have a account register here? <a href="register.php">
+					<p class="text-info">Register Account</p>
+				</a>
+			</div>
+		</div>
+
+	</form>
 
 
+	<?php
+	include("footer.php");
+
+	?>
 </body>
 
 </html>

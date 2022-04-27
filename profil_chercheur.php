@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="all.css">
+
 
     <?php
 
@@ -20,32 +22,28 @@
     $select_stmt->execute(array(':chercheur_id' => $chercheur_id));    //execute query with bind parameter
     $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
     ?>
-        <title><?php echo $params['id']  ?></title>
+    <title><?php echo $params['id']  ?></title>
 </head>
 
 <body>
-    <div class="profile">
-
-
-        <div class="image">
-            <img src="img/einstein.jpg" alt="">
-        </div>
         <div class="info">
-            <h1><?php echo $row['nom'] . " " . $row['prenom']; ?></h1>
-            <h2><?php echo $row['travail']; ?></h2>
-            <h2><?php echo $row['grade']; ?></h2>
-            <h2><?php echo $row['structure']; ?></h2>
-            <p><?php echo $row['biographie']; ?></p>
+            <h1>Nom et Prénom : <span><?php echo $row['nom'] . " " . $row['prenom']; ?></span></h1>
+            <h2>Travail : <span><?php echo $row['travail']; ?></span></h2>
+            <h2>Grade : <span><?php echo $row['grade']; ?></span></h2>
+            <h2>Structure : <span><?php echo $row['structure']; ?></span></h2>
+            <?php if ((isset($_SESSION['nom_d_utilisateur']))) { ?>
+                <h2>Biographie : </h2>
+                <p><?php echo $row['biographie']; ?></span></p>
+            <?php } ?>
         </div>
-    </div>
 
 
 
 
-<?php 
+    <?php
     include("footer.php");
 
-?>
+    ?>
 </body>
 
 </html>

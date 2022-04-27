@@ -1,3 +1,93 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    outline: none;
+    font-family: Montserrat;
+}
+
+html,
+body {
+    font-size: 20px;
+    background-color: #fff;
+    color: #1f1f1f;
+    font-family: 'lato', 'arial', sans-serif;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    font-size: 12px;
+}
 body {
     margin: 5%;
 }
+
+[data-href] {
+    cursor: pointer;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin: 10px auto 10px auto;
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+.clickable-row:hover{
+    background-color:  rgb(25, 25, 112, .5);
+    color: white;
+}
+
+.info{
+    background-color: lightgray;
+    border-radius: 50px;
+    padding: 20px 20px 20px 40px ;
+    margin: 15px 0 15px 0;
+}
+
+h1{
+    color : #191970;
+    padding-bottom: 20px;
+}
+
+h1 span{
+    color: black;
+}
+
+h2{
+    padding: 5px 0;
+    color : #191970;
+}
+h2 span{
+    color : black;
+}
+
